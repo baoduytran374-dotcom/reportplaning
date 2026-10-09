@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard QLKH · Tháng 10/2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--ink:#14243f;--mute:#667489;--line:#dde3ec;--navy:#1b365d;
+--todo:#8a96a8;--prog:#2f75b8;--done:#14a085;--late:#e4572e;--block:#7b5ea7;--closed:#5b6b80;--p1:#e4572e;--p2:#f0a030;--p3:#8a96a8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1826;--card:#172336;--ink:#e6ecf5;--mute:#93a1b6;--line:#2a3a52;--navy:#9bb8e0}}
+:root[data-theme="dark"]{--bg:#0f1826;--card:#172336;--ink:#e6ecf5;--mute:#93a1b6;--line:#2a3a52;--navy:#9bb8e0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:26px;line-height:1.2;margin:0;color:var(--navy);letter-spacing:-.01em}
+h2{font-size:17px;margin:32px 0 12px;color:var(--navy)}
+.sub{color:var(--mute);margin:4px 0 0;font-size:14px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.days{text-align:right}.days b{font-size:34px;line-height:1;color:var(--navy);display:block}.days span{color:var(--mute);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));border-radius:6px;padding:10px 12px}
+.stat b{font-size:24px;display:block;line-height:1.1}.stat span{font-size:13px;color:var(--mute)}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line);margin-top:14px}
+.bar i{display:block;height:100%}
+.ms{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.m{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:6px;padding:12px}
+.m b{font-size:22px;color:var(--c)}.m div{font-weight:600}.m small{color:var(--mute);display:block}
+.m em{font-style:normal;font-size:12px;font-weight:600;margin-top:6px;display:inline-block}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.filters button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--navy);color:var(--bg);border-color:var(--navy)}
+button:focus-visible,select:focus-visible{outline:2px solid var(--prog);outline-offset:2px}
+.grp{font-weight:700;font-size:13px;color:var(--mute);margin:18px 0 6px}
+.row{display:grid;grid-template-columns:34px 1.5fr .9fr 1.1fr 92px 130px 1.4fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pc);border-radius:6px;padding:10px 12px;margin-bottom:6px}
+.row.hd{background:none;border:0;padding:0 12px;color:var(--mute);font-size:12px;margin-bottom:2px}
+.pt{font-weight:700;font-size:12px;color:var(--pc)}
+.t{font-weight:600}.t small{display:block;font-weight:400;color:var(--mute)}
+.dl{font-size:13px;font-variant-numeric:tabular-nums}.dl.od{color:var(--late);font-weight:700}
+select{font:inherit;font-size:13px;width:100%;padding:5px 6px;border-radius:5px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-left:4px solid var(--sc)}
+.nt{font:inherit;font-size:13px;width:100%;min-height:36px;resize:vertical;padding:5px 7px;border-radius:5px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.nt.need{border-color:var(--late)}
+.nt:focus-visible{outline:2px solid var(--prog);outline-offset:1px}
+.tb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0 10px}
+.tb button{font:inherit;font-size:13px;padding:5px 12px;border-radius:6px;border:1px solid var(--navy);background:none;color:var(--navy);cursor:pointer}
+#exp{display:none;width:100%;min-height:120px;font:12px/1.5 ui-monospace,Menlo,monospace;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);margin-bottom:10px}
+.wr{display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin-bottom:5px}
+.wr .wd{font-variant-numeric:tabular-nums;font-size:13px;color:var(--navy)}
+.wr small{display:block;color:var(--mute);font-size:12px}.wr small.u{color:var(--ink)}
+.pill{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--sc);color:var(--sc);white-space:nowrap}
+.wsum{display:flex;gap:16px;flex-wrap:wrap;margin:4px 0 6px;font-size:14px}.wsum span b{font-size:18px}
+.log{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px 14px}
+.log div{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}.log div:last-child{border:0}
+.log b{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--navy)}
+.note{font-size:12px;color:var(--mute);margin-top:24px}
+.gw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 0}
+.gt{min-width:820px}
+.gr{display:grid;grid-template-columns:200px repeat(31,1fr);align-items:center;height:28px}
+.gr>.gl{padding:0 10px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;grid-column:1}
+.gr>.c{height:100%;border-left:1px solid var(--line);grid-row:1}
+.gr>.c.we{background:color-mix(in srgb,var(--mute) 12%,transparent)}
+.gr>.c.td{background:color-mix(in srgb,var(--late) 18%,transparent);border-left:2px solid var(--late)}
+.gr.gh{height:24px;font-size:11px;color:var(--mute);text-align:center}.gr.gh>.c{border:0;background:none}
+.gr.gh>.c.td{color:var(--late);font-weight:700;background:none;border:0}
+.gg{font-weight:700;font-size:12px;color:var(--mute);padding:6px 10px 2px}
+.gb{grid-row:1;height:14px;border-radius:3px;z-index:1;position:relative;background:var(--bc)}
+.gb.wk{background:repeating-linear-gradient(45deg,var(--bc) 0 4px,transparent 4px 8px);opacity:.6;border:1px dashed var(--bc)}
+.gb.ms::after{content:"";position:absolute;right:-5px;top:1px;width:10px;height:10px;background:var(--bc);border:2px solid var(--card);transform:rotate(45deg)}
+.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:8px}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+@media(max-width:760px){.row{grid-template-columns:30px 1fr;row-gap:4px}.row.hd{display:none}.row>*:nth-child(n+3){grid-column:2}}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <div><h1>Dashboard theo dõi · Tháng 10/2026</h1>
+  <p class="sub">Phòng Quản lý Kế hoạch · Betma English · Trưởng phòng: Trần Bảo Duy</p></div>
+  <div class="days"><b id="dleft">–</b><span id="dtxt">ngày còn lại</span></div>
+</div>
+<div class="stats" id="stats"></div>
+<div class="bar" id="bar" role="img" aria-label="Tỷ lệ tiến độ"></div>
+
+<h2>Mốc trọng yếu (P1)</h2>
+<div class="ms" id="ms"></div>
+
+<h2>Báo cáo tuần</h2>
+<div class="filters" id="wtabs"></div>
+<div id="wrep"></div>
+
+<h2>Gantt theo dõi</h2>
+<div class="gw"><div class="gt" id="gantt"></div></div>
+<div class="lg" id="glg"></div>
+
+<h2>Danh sách công việc</h2>
+<div class="filters" id="filters"></div>
+<div class="tb"><button id="bexp">Xuất cập nhật để gửi Claude</button><span class="sub" id="bmsg"></span></div>
+<textarea id="exp" readonly></textarea>
+<div id="tasks"></div>
+
+<h2>Nhật ký cập nhật</h2>
+<div class="log" id="log"></div>
+<p class="note">Trạng thái và ô giải trình chỉ lưu trên trình duyệt của bạn. Bấm “Xuất cập nhật để gửi Claude” rồi dán vào chat, Claude sẽ ghi vào dữ liệu chính thức và đăng lại trang.</p>
+</main>
+
+<script>
+/* ====== DỮ LIỆU — chỉ cần sửa khối này khi cập nhật ====== */
+const YEAR=2026, MONTH=10;
+const STATUS={todo:["Chưa bắt đầu","--todo"],prog:["Đang thực hiện","--prog"],done:["Hoàn thành","--done"],late:["Trễ","--late"],block:["Bị chặn","--block"],closed:["Đã đóng","--closed"]};
+const PRI={P1:["Trọng yếu","--p1"],P2:["Quan trọng","--p2"],P3:["Duy trì","--p3"]};
+// d = ngày deadline trong tháng 10 (null = theo dõi hàng tuần); s = trạng thái; n = ghi chú/vấn đề
+const TASKS=[
+{id:"t1",p:"P1",g:"IELTS sinh viên",t:"Hoàn thiện phương án sản phẩm IELTS cho SV ĐH",pic:"Bảo Duy + Thầy Sơn",o:"Khung đầu ra 6.0/7.0 + học phí + phương án triển khai",d:5,s:"todo",n:""},
+{id:"t2",p:"P1",g:"Market",t:"Theo dõi triển khai 07 thị trường",pic:"Bảo Duy + MKT + TS",o:"Market Pipeline: Contact → Meeting → Proposal → Pilot",d:null,s:"prog",n:"",u:"Đã gửi thông tin và kết nối với chị Trâm Anh – Trung tâm Kết nối doanh nghiệp VHU. Đang đợi phản hồi."},
+{id:"t3",p:"P1",g:"Market",t:"Theo dõi làm việc với Thành Danh và các Khoa (IUH)",pic:"QLKH + TS",o:"Network Map + kế hoạch tiếp cận từng Khoa",d:10,s:"todo",n:""},
+{id:"t4",p:"P1",g:"Market",t:"Theo dõi 06 trường mới",pic:"MKT + TS",o:"Contact/Meeting/Proposal Pipeline",d:15,s:"todo",n:""},
+{id:"t5",p:"P1",g:"Học liệu số",t:"Xây dựng Ngân hàng học liệu số",pic:"QLKH + Đào tạo + MKT",o:"Structure + Format + Pilot Video",d:31,s:"todo",n:""},
+{id:"t5a",p:"P1",g:"Học liệu số",t:"GĐ1: Cấu trúc ngân hàng + format (01–10/10)",pic:"QLKH + Đào tạo + MKT",o:"Structure + Format",d:10,s:"todo",n:""},
+{id:"t5b",p:"P1",g:"Học liệu số",t:"GĐ2: Sản xuất thử nghiệm (11–20/10)",pic:"QLKH + Đào tạo + MKT",o:"Video Pilot",d:20,s:"todo",n:""},
+{id:"t5c",p:"P1",g:"Học liệu số",t:"GĐ3: Review + chuẩn hóa + mở rộng (21–31/10)",pic:"QLKH + Đào tạo + MKT",o:"Format chính thức + Production Plan",d:31,s:"todo",n:""},
+{id:"t6",p:"P1",g:"R&D × Đào tạo",t:"Theo dõi chuyển giao VSTEP B1 Tinh gọn",pic:"R&D + Đào tạo",o:"Chương trình + giáo trình + học liệu + phương pháp",d:31,s:"todo",n:""},
+{id:"t7",p:"P2",g:"R&D × Đào tạo",t:"Theo dõi phát triển chương trình VSTEP B2",pic:"R&D",o:"Roadmap + kết quả từng giai đoạn",d:null,s:"todo",n:""},
+{id:"t7a",p:"P2",g:"R&D × Đào tạo",t:"Thẩm định chương trình B2 (6 tháng): tài liệu Giai đoạn Căn bản",pic:"Thầy Lê Thành Nhân + Cô Trần Thị Phúc (trình bày)",o:"Đánh giá, thẩm định tài liệu GĐ Căn bản",d:8,s:"todo",n:"Thứ Năm 08/10, 13:45–15:30. Tham dự: Thầy Khoa, Cô Trâm, Thầy Võ Thành Sơn, Thầy Ngọc Duy. Tài liệu đã gửi để nghiên cứu trước."},
+{id:"t8a",p:"P2",g:"R&D × Đào tạo",t:"Aptis GĐ1: Tiếp cận & định hình cấu trúc bài thi",pic:"R&D + Đào tạo",o:"Khung cấu trúc và định hướng chương trình (nghiên cứu cấu trúc, dạng bài, cách tính điểm; xác định đầu ra và khung kiến thức)",d:4,s:"todo",n:"Chưa có cập nhật tiến độ"},
+{id:"t8b",p:"P2",g:"R&D × Đào tạo",t:"Aptis GĐ2: Nghiên cứu & phát triển tài liệu",pic:"R&D + Đào tạo",o:"Bộ khung chương trình + tài liệu đào tạo (rà soát tài liệu Trung tâm bàn giao, phát triển theo kỹ năng, lộ trình)",d:11,s:"todo",n:""},
+{id:"t8c",p:"P2",g:"R&D × Đào tạo",t:"Aptis GĐ3: Báo cáo & đánh giá",pic:"R&D + Đào tạo",o:"Báo cáo, đề xuất phương án triển khai (tổng hợp, đánh giá, hoàn thiện nội dung điều chỉnh)",d:19,s:"todo",n:""},
+{id:"t8",p:"P2",g:"R&D × Đào tạo",t:"Aptis ESOL B1–B2: phương án triển khai (tổng)",pic:"R&D + Đào tạo",o:"Dự thảo → hoàn thiện → phương án triển khai",d:31,s:"todo",n:"Phương án triển khai chốt trong tháng 10"},
+{id:"t9",p:"P2",g:"Điều phối",t:"Phối hợp xây dựng hệ thống đánh giá trải nghiệm học thuật",pic:"QLKH + Đào tạo",o:"Khung tiêu chuẩn + hệ thống dữ liệu",d:10,s:"todo",n:""},
+{id:"t10",p:"P2",g:"Điều phối",t:"Theo dõi lựa chọn và triển khai Betma Mate",pic:"Đào tạo + TS",o:"Phương án + kế hoạch triển khai",d:1,s:"todo",n:""},
+{id:"t11",p:"P2",g:"Điều phối",t:"Campus Activation IUH: quyết định triển khai hoặc đóng phương án",pic:"QLKH + MKT + TS + ĐT",o:"Quyết định triển khai hoặc đóng phương án",d:4,s:"todo",n:"Deadline: Tuần 1 (01–04/10)"},
+{id:"t15",p:"P2",g:"Phòng Đào tạo",t:"Hướng dẫn làm bài Reading VSTEP T10 (2 lần: 07/10 và 13/10)",pic:"Thầy Nhân (ĐT); Bảo Duy + Tuyển cập nhật lịch",o:"2 buổi Reading cho học viên chuẩn bị thi VSTEP tháng 10",d:13,s:"todo",n:"13:45–15:30. Phòng 301, Cơ sở 06 Lê Đức Thọ."},
+{id:"t16",p:"P2",g:"Phòng Đào tạo",t:"Hướng dẫn làm bài Listening VSTEP T10 (2 lần: 08/10 và 14/10)",pic:"Thầy Nhân (ĐT); Bảo Duy + Tuyển cập nhật lịch",o:"2 buổi Listening cho học viên chuẩn bị thi VSTEP tháng 10",d:14,s:"todo",n:"13:45–15:30. Phòng 301, Cơ sở 06 Lê Đức Thọ."},
+{id:"t17",p:"P2",g:"Phòng Đào tạo",t:"Buổi phổ biến Quy chế thi VSTEP tháng 10",pic:"Thầy Duy (ĐT)",o:"Phổ biến quy chế cho học viên thi tháng 10",d:16,s:"todo",n:"Lịch chính thức: Thứ 6 16/10, 13:45–15:30 (đổi từ 14/10 do sai sót khi lên lịch). Phòng 301, Cơ sở 06 Lê Đức Thọ."},
+{id:"t18",p:"P2",g:"Phòng Đào tạo",t:"Hiệu đính lần một sách TOEIC 600+ (Skills Building)",pic:"Phòng Đào tạo",o:"Sách cuốn 1 và cuốn 2 đã gửi Thầy Khoa, Cô Trâm và quản lý",d:0,s:"done",n:"Đã hoàn thành hiệu đính lần một; link Drive đã gửi."},
+{id:"t19",p:"P2",g:"Phòng Đào tạo",t:"Làm bìa sách TOEIC 600+ (cuốn 1 cập nhật, cuốn 2 build mới)",pic:"Bảo Duy + Ngọc Tuyển",o:"Bìa cuốn 1 (cập nhật) + bìa cuốn 2",d:13,s:"todo",n:"Thầy đã xong cuốn 2, nhờ build bìa. Deadline 13/10."},
+{id:"m1",p:"P2",g:"Trung đoàn E29 – Trao quà Nhà Bè",t:"Hoàn tất kế hoạch chương trình và trình ký",pic:"Mr. Trương Chấn Sang",o:"Kế hoạch đã trình ký",d:5,s:"prog",n:""},
+{id:"m2",p:"P2",g:"Trung đoàn E29 – Trao quà Nhà Bè",t:"Mua quà/vật phẩm phục vụ chương trình",pic:"Mr. Trương Chấn Sang",o:"Quà/vật phẩm đã mua",d:5,s:"prog",n:""},
+{id:"m3",p:"P2",g:"Trung đoàn E29 – Trao quà Nhà Bè",t:"Chuyển quà/vật phẩm xuống Nhà Bè",pic:"Mr. Trương Chấn Sang",o:"Quà đã chuyển xuống Nhà Bè",d:6,s:"todo",n:"Deadline 05–06/10"},
+{id:"m4",p:"P2",g:"Trung đoàn E29 – Trao quà Nhà Bè",t:"Tổ chức chương trình trao quà tại Trung đoàn E29",pic:"Mr. Trương Chấn Sang",o:"Chương trình đã diễn ra",d:9,s:"todo",n:""},
+{id:"m5",p:"P2",g:"Đào tạo VSTEP – Mr. Sang",t:"Chuyển thông tin liên hệ anh Ngọc Duy – P. Phòng Đào tạo",pic:"Mr. Trương Chấn Sang",o:"Đã chuyển liên hệ",d:3,s:"done",n:""},
+{id:"m6",p:"P2",g:"Đào tạo VSTEP – Mr. Sang",t:"Chuyển giao nội dung đào tạo VSTEP cho anh Sang",pic:"Bộ phận Đào tạo",o:"Nội dung VSTEP GĐ1",d:3,s:"done",n:"Hoàn thành giai đoạn 1"},
+{id:"m7",p:"P2",g:"Web Test – Công binh",t:"Phối hợp triển khai Web Test",pic:"Bên Công binh × Mr. Sang",o:"Web Test triển khai",d:8,s:"prog",n:"Theo dõi tiến độ triển khai"},
+{id:"m8",p:"P2",g:"IDP – IELTS",t:"Kết nối và làm việc với anh Ngọc Trung – IDP",pic:"Phụ trách đối ngoại",o:"Đã kết nối IDP",d:5,s:"done",n:"Đã kết nối"},
+{id:"m9",p:"P2",g:"IDP – IELTS",t:"Trao đổi và thống nhất phương án hợp tác IELTS",pic:"Phụ trách đối ngoại × IDP",o:"Phương án hợp tác IELTS",d:5,s:"done",n:"Hoàn thành GĐ1"},
+{id:"m10",p:"P2",g:"IDP – IELTS",t:"Hoàn tất hồ sơ hợp tác và chuyển anh Trung",pic:"Phụ trách đối ngoại",o:"Hồ sơ hợp tác",d:5,s:"done",n:"Hồ sơ đã hoàn tất và chuyển anh Trung (GĐ1)"},
+{id:"m11",p:"P2",g:"TT Thanh thiếu Nhi – Chị Hải Vân",t:"Trao đổi nhu cầu đặt hàng và lịch tổ chức lớp",pic:"Phụ trách đối ngoại",o:"Nhu cầu + lịch lớp",d:7,s:"prog",n:""},
+{id:"m12",p:"P2",g:"TT Thanh thiếu Nhi – Chị Hải Vân",t:"Xây dựng phương án đào tạo có thu phí",pic:"Bộ phận Đào tạo",o:"Phương án đào tạo có thu phí",d:7,s:"prog",n:""},
+{id:"m13",p:"P2",g:"TT Thanh thiếu Nhi – Chị Hải Vân",t:"Chốt nội dung và phương án triển khai",pic:"Phụ trách liên quan",o:"Nội dung + phương án chốt",d:7,s:"todo",n:"Chờ xác nhận. Deadline GĐ1"},
+{id:"m14",p:"P2",g:"AI chấm/chữa Speaking & Writing",t:"Kết nối, trao đổi với anh Tấn về giải pháp AI",pic:"Phụ trách dự án × Mr. Tấn",o:"Giải pháp AI",d:5,s:"prog",n:""},
+{id:"m15",p:"P2",g:"AI chấm/chữa Speaking & Writing",t:"Cung cấp học liệu phục vụ chạy thử nghiệm",pic:"Bộ phận Đào tạo",o:"Học liệu chạy thử",d:5,s:"done",n:"Đã triển khai, đã chuyển Bộ phận Đào tạo hỗ trợ"},
+{id:"m16",p:"P2",g:"AI chấm/chữa Speaking & Writing",t:"Chạy thử nghiệm AI chấm/chữa Speaking & Writing",pic:"Bộ phận Đào tạo × Mr. Tấn",o:"Kết quả thử nghiệm AI",d:8,s:"prog",n:""},
+{id:"m17",p:"P2",g:"SaiGonStar – Hướng nghiệp THPT",t:"Trao đổi kế hoạch hướng nghiệp tại các trường THPT",pic:"SEM × SaiGonStar",o:"Kế hoạch hoạt động",d:7,s:"prog",n:""},
+{id:"m18",p:"P2",g:"SaiGonStar – Hướng nghiệp THPT",t:"Hoàn thiện phương án phối hợp triển khai",pic:"SEM × SaiGonStar",o:"Phương án phối hợp",d:7,s:"todo",n:"Chờ xác nhận"},
+{id:"m19",p:"P2",g:"SaiGonStar – Hướng nghiệp THPT",t:"Cập nhật và xác nhận khu vực bố trí tại sảnh Lầu 4",pic:"Văn phòng",o:"Khu vực sảnh Lầu 4",d:5,s:"prog",n:"Văn phòng phụ trách cập nhật"},
+{id:"m20",p:"P2",g:"SaiGonStar – Hướng nghiệp THPT",t:"Bố trí khu vực tổ chức hoạt động cho SaiGonStar",pic:"Văn phòng",o:"Khu vực đã bố trí",d:0,s:"todo",n:"Trước ngày triển khai. SEM hỗ trợ/tài trợ địa điểm"},
+{id:"m21",p:"P2",g:"SaiGonStar – Hướng nghiệp THPT",t:"Chuẩn bị bảng hiệu SaiGonStar tại khu vực bố trí",pic:"Văn phòng",o:"Bảng hiệu",d:0,s:"todo",n:"Trước ngày triển khai. Theo phương án nhận diện tại khu vực"},
+{id:"t12",p:"P3",g:"Điều hành",t:"Planning Dashboard: tổng hợp tiến độ các phòng",pic:"QLKH",o:"Dashboard tuần/tháng",d:null,s:"prog",n:"Đã có bản dashboard đầu tiên (05/10)"},
+{id:"t13",p:"P3",g:"Điều hành",t:"Rà soát và đóng công việc tồn đọng",pic:"Các PIC",o:"Task Closed / Deadline mới",d:null,s:"todo",n:""},
+{id:"t14",p:"P3",g:"Điều hành",t:"Monthly Review + Closing tháng 10",pic:"QLKH",o:"Phân loại Closed / Carry Forward / Cancelled",d:31,s:"todo",n:"Review 30/10, Closing 31/10"}
+];
+// a = ngày bắt đầu thanh Gantt (việc hàng tuần chạy suốt tháng)
+const START={m1:5,m2:5,m3:5,m4:9,m5:2,m6:2,m7:2,m8:2,m9:2,m10:2,m11:2,m12:2,m13:2,m14:2,m15:2,m16:5,m17:2,m18:2,m19:2,m20:5,m21:5,t18:1,t19:5,t15:7,t16:8,t17:16,t7a:8,t8a:1,t8b:5,t8c:12,t1:1,t3:1,t4:1,t5:1,t5a:1,t5b:11,t5c:21,t6:1,t8:1,t9:1,t10:1,t11:1,t14:30};
+const LOG=[
+{d:"05/10/2026",t:"Thêm mục Báo cáo tuần (4 tuần: 01–11/10, 12–18/10, 19–25/10, 26–31/10), tự tổng hợp từ dữ liệu công việc."},
+{d:"05/10/2026",t:"Bìa sách TOEIC 600+: cập nhật hạn 13/10."},
+{d:"05/10/2026",t:"Danh sách công việc: giữ nguyên thứ tự nhóm, trong mỗi nhóm xếp theo deadline từ sớm đến muộn (việc hàng tuần/chưa có hạn xếp cuối nhóm)."},
+{d:"05/10/2026",t:"Market 07 thị trường: đã gửi thông tin và kết nối chị Trâm Anh (TT Kết nối doanh nghiệp VHU), đợi phản hồi."},
+{d:"05/10/2026",t:"Thêm cột Giải trình / cập nhật cạnh cột Trạng thái và nút xuất cập nhật."},
+{d:"05/10/2026",t:"Thêm 21 task từ Kế hoạch triển khai sau họp 02/10 (E29, VSTEP–Mr. Sang, Web Test, IDP–IELTS, TT Thanh thiếu Nhi, AI chấm/chữa, SaiGonStar)."},
+{d:"05/10/2026",t:"Cập nhật từ Phòng Đào tạo/R&D: tách 3 giai đoạn Aptis, thêm thẩm định B2 (08/10), 2 buổi Reading/Listening VSTEP, phổ biến quy chế thi (16/10), sách TOEIC 600+ (hiệu đính xong, chờ bìa)."},
+{d:"05/10/2026",t:"Thêm bảng Gantt theo dõi (màu thanh theo trạng thái, vạch đỏ là hôm nay)."},
+{d:"05/10/2026",t:"Đưa Kế hoạch làm việc tháng 10/2026 lên dashboard (16 đầu việc, 4 mốc P1)."}
+];
+/* ====== HẾT KHỐI DỮ LIỆU ====== */
+
+const $=id=>document.getElementById(id);
+const css=v=>`var(${v})`;
+let saved={};try{saved=JSON.parse(localStorage.getItem("qlkh-t10-status")||"{}")}catch(e){}
+let notes={};try{notes=JSON.parse(localStorage.getItem("qlkh-t10-notes")||"{}")}catch(e){}
+const st=t=>saved[t.id]||t.s;
+const nt=t=>notes[t.id]!==undefined?notes[t.id]:(t.u||"");
+const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+const due=t=>t.d==null||t.d===0?null:new Date(YEAR,MONTH-1,t.d);
+const over=t=>{const x=due(t);return x&&x<today&&!["done","closed"].includes(st(t))};
+const fmt=t=>t.d==null?"Hàng tuần":t.d===0?"Chưa có hạn":String(t.d).padStart(2,"0")+"/"+MONTH;
+let fp="all",fs="all";
+
+function head(){
+  const end=new Date(YEAR,MONTH,0),left=Math.round((end-today)/864e5);
+  $("dleft").textContent=left>=0?left:0;
+  $("dtxt").textContent=left>=0?"ngày đến Closing 31/10":"tháng đã kết thúc";
+  const c={};Object.keys(STATUS).forEach(k=>c[k]=0);TASKS.forEach(t=>c[st(t)]++);
+  const n=TASKS.length,od=TASKS.filter(over).length,pct=Math.round((c.done+c.closed)/n*100);
+  const box=[["Tiến độ",pct+"%","--done"],["Tổng việc",n,"--navy"],["Đang làm",c.prog,"--prog"],["Quá hạn",od,"--late"],["Bị chặn",c.block,"--block"],["Chưa bắt đầu",c.todo,"--todo"]];
+  $("stats").innerHTML=box.map(b=>`<div class="stat" style="--c:${css(b[2])}"><b>${b[1]}</b><span>${b[0]}</span></div>`).join("");
+  $("bar").innerHTML=["done","closed","prog","block","late","todo"].map(k=>`<i title="${STATUS[k][0]}: ${c[k]}" style="width:${c[k]/n*100}%;background:${css(STATUS[k][1])}"></i>`).join("");
+}
+function miles(){
+  const items=[[5,"IELTS sinh viên","Proposal: khung đầu ra 6.0/7.0 + học phí","t1","--prog"],[10,"IUH","Network Map + kế hoạch tiếp cận từng Khoa","t3","--done"],[15,"Market Expansion","Pipeline 06 trường mới","t4","--block"],[31,"Học liệu số · VSTEP B1","Bank + Format + Pilot Video; hoàn tất chuyển giao","t5","--p1"]];
+  $("ms").innerHTML=items.map(m=>{
+    const t=TASKS.find(x=>x.id===m[3]),s=st(t),dd=Math.round((new Date(YEAR,MONTH-1,m[0])-today)/864e5);
+    const tag=["done","closed"].includes(s)?STATUS[s][0]:dd<0?`Quá hạn ${-dd} ngày`:dd===0?"Hôm nay":`Còn ${dd} ngày`;
+    return `<div class="m" style="--c:${css(m[4])}"><b>${m[0]}/${MONTH}</b><div>${m[1]}</div><small>${m[2]}</small><em style="color:${css(STATUS[s][1])}">${tag}</em></div>`}).join("");
+}
+function filters(){
+  const mk=(grp,key,val,label)=>`<button aria-pressed="${(key==="p"?fp:fs)===val}" data-k="${key}" data-v="${val}">${label}</button>`;
+  $("filters").innerHTML=mk(0,"p","all","Mọi ưu tiên")+Object.keys(PRI).map(k=>mk(0,"p",k,k+" · "+PRI[k][0])).join("")+
+    mk(0,"s","all","Mọi trạng thái")+mk(0,"s","over","Quá hạn")+Object.keys(STATUS).map(k=>mk(0,"s",k,STATUS[k][0])).join("");
+}
+function tasks(){
+  const list=TASKS.filter(t=>(fp==="all"||t.p===fp)&&(fs==="all"||(fs==="over"?over(t):st(t)===fs)))
+    .map((t,i)=>({t,i})).sort((x,y)=>{const G=TASKS.map(k=>k.g),k=z=>z.t.d>0?z.t.d:99;return G.indexOf(x.t.g)-G.indexOf(y.t.g)||k(x)-k(y)||x.i-y.i}).map(z=>z.t);
+  if(!list.length){$("tasks").innerHTML='<p class="sub">Không có công việc nào khớp bộ lọc.</p>';return}
+  let h='<div class="row hd"><span>Ưu tiên</span><span>Công việc</span><span>PIC</span><span>Output</span><span>Deadline</span><span>Trạng thái</span><span>Giải trình / cập nhật</span></div>',g="";
+  list.forEach(t=>{
+    if(t.g!==g){g=t.g;h+=`<div class="grp">${g}</div>`}
+    const s=st(t);
+    h+=`<div class="row" style="--pc:${css(PRI[t.p][1])}"><span class="pt">${t.p}</span>
+    <div class="t">${t.t}${t.n?`<small>${t.n}</small>`:""}</div><span>${t.pic}</span><span>${t.o}</span>
+    <span class="dl${over(t)?" od":""}">${fmt(t)}${over(t)?" · trễ":""}</span>
+    <select data-id="${t.id}" aria-label="Trạng thái: ${t.t}" style="--sc:${css(STATUS[s][1])}">${Object.keys(STATUS).map(k=>`<option value="${k}"${k===s?" selected":""}>${STATUS[k][0]}</option>`).join("")}</select><textarea class="nt${over(t)&&!nt(t)?" need":""}" data-id="${t.id}" rows="2" placeholder="${over(t)?"Cần giải trình lý do trễ + phương án…":"Giải trình / cập nhật tình trạng…"}" aria-label="Giải trình: ${t.t}">${nt(t).replace(/&/g,"&amp;").replace(/</g,"&lt;")}</textarea></div>`});
+  $("tasks").innerHTML=h;
+}
+function gantt(){
+  const days=[...Array(31).keys()].map(i=>i+1),dow=d=>new Date(YEAR,MONTH-1,d).getDay();
+  const cells=r=>days.map(d=>`<span class="c${dow(d)%6===0?" we":""}${new Date(YEAR,MONTH-1,d).getTime()===today.getTime()?" td":""}" style="grid-column:${d+1}"></span>`).join("");
+  let h='<div class="gr gh"><span class="gl"></span>'+days.map(d=>`<span class="c${new Date(YEAR,MONTH-1,d).getTime()===today.getTime()?" td":""}" style="grid-column:${d+1}">${d}</span>`).join("")+'</div>',g="";
+  TASKS.forEach(t=>{
+    if(t.g!==g){g=t.g;h+=`<div class="gg">${g}</div>`}
+    const wk=t.d==null||t.d===0,a=wk?(START[t.id]||1):(START[t.id]||t.d),e=wk?31:t.d,s=st(t);
+    h+=`<div class="gr"><span class="gl" title="${t.t}">${t.t}</span>${cells()}<span class="gb${wk?" wk":" ms"}" title="${t.t} · ${fmt(t)} · ${STATUS[s][0]}" style="--bc:${css(over(t)?"--late":STATUS[s][1])};grid-column:${a+1}/${e+2}"></span></div>`});
+  $("gantt").innerHTML=h;
+  $("glg").innerHTML=Object.keys(STATUS).map(k=>`<span><i style="background:${css(STATUS[k][1])}"></i>${STATUS[k][0]}</span>`).join("")+'<span><i style="background:var(--late)"></i>Quá hạn (thanh đỏ)</span><span>◆ Deadline · thanh sọc: theo dõi hàng tuần</span>';
+}
+const WEEKS=[[1,11],[12,18],[19,25],[26,31]];
+let wk=(()=>{if(today.getFullYear()!==YEAR||today.getMonth()!==MONTH-1)return 0;const d=today.getDate();const i=WEEKS.findIndex(w=>d>=w[0]&&d<=w[1]);return i<0?0:i})();
+const esc=x=>String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const pd=d=>String(d).padStart(2,"0")+"/"+MONTH;
+function week(){
+  const [a,b]=WEEKS[wk],fin=t=>["done","closed"].includes(st(t)),sd=t=>START[t.id]||(t.d>0?t.d:1);
+  const A=TASKS.filter(t=>t.d>=a&&t.d<=b).sort((x,y)=>x.d-y.d);
+  const B=TASKS.filter(t=>t.d>0&&t.d<a&&!fin(t)).sort((x,y)=>x.d-y.d);
+  const C=TASKS.filter(t=>t.d>b&&sd(t)<=b).sort((x,y)=>x.d-y.d);
+  const D=TASKS.filter(t=>(t.d==null||t.d===0)&&sd(t)<=b&&!(t.d===0&&fin(t)));
+  $("wtabs").innerHTML=WEEKS.map((w,i)=>`<button aria-pressed="${i===wk}" data-w="${i}">Tuần ${i+1} · ${pd(w[0])} – ${pd(w[1])}</button>`).join("");
+  const c=k=>A.filter(t=>st(t)===k).length,n=A.length,dn=c("done")+c("closed");
+  const row=t=>`<div class="wr"><b class="wd">${fmt(t)}</b><div><span class="t">${t.t}</span><small>${t.g} · ${t.pic}</small>${t.n?`<small>${esc(t.n)}</small>`:""}${nt(t)?`<small class="u">↳ ${esc(nt(t))}</small>`:""}</div><span class="pill" style="--sc:${css(over(t)?"--late":STATUS[st(t)][1])}">${STATUS[st(t)][0]}${over(t)?" · trễ":""}</span></div>`;
+  const sec=(ti,L)=>L.length?`<div class="grp">${ti} (${L.length})</div>`+L.map(row).join(""):"";
+  $("wrep").innerHTML=`<div class="wsum"><span><b>${n}</b> việc đến hạn</span><span><b style="color:var(--done)">${dn}</b> hoàn thành</span><span><b style="color:var(--prog)">${c("prog")}</b> đang làm</span><span><b style="color:var(--late)">${A.filter(over).length}</b> quá hạn</span><span><b>${n?Math.round(dn/n*100):0}%</b> tiến độ tuần</span></div>`+
+   (sec("Đến hạn trong tuần",A)||'<p class="sub">Tuần này chưa có việc nào đến hạn.</p>')+sec("Tồn từ tuần trước (chưa hoàn thành)",B)+sec("Đang chạy xuyên tuần (hạn các tuần sau)",C)+sec("Theo dõi hàng tuần / chưa có hạn",D);
+}
+function log(){$("log").innerHTML=LOG.slice().reverse().map(l=>`<div><b>${l.d}</b><span>${l.t}</span></div>`).join("")}
+function all(){head();miles();week();gantt();filters();tasks();log()}
+$("filters").onclick=e=>{const b=e.target.closest("button");if(!b)return;b.dataset.k==="p"?fp=b.dataset.v:fs=b.dataset.v;filters();tasks()};
+$("wtabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;wk=+b.dataset.w;week()};
+$("tasks").oninput=e=>{const x=e.target.closest("textarea");if(!x)return;notes[x.dataset.id]=x.value;x.classList.remove("need");try{localStorage.setItem("qlkh-t10-notes",JSON.stringify(notes))}catch(z){}};
+$("bexp").onclick=()=>{
+  const L=TASKS.filter(t=>nt(t)||saved[t.id]).map(t=>`[${t.id}] ${t.t} | ${STATUS[st(t)][0]} | ${fmt(t)}${nt(t)?" | "+nt(t):""}`);
+  const el=$("exp");el.style.display="block";el.value=L.length?"Cập nhật dashboard QLKH T10 ("+today.toLocaleDateString("vi-VN")+"):\n"+L.join("\n"):"Chưa có cập nhật nào được nhập.";el.select();
+  let ok=false;try{ok=document.execCommand("copy")}catch(z){}
+  $("bmsg").textContent=ok?"Đã sao chép, dán vào chat với Claude.":"Chọn và sao chép nội dung bên dưới, rồi dán vào chat với Claude."};
+$("tasks").onchange=e=>{const s=e.target.closest("select");if(!s)return;saved[s.dataset.id]=s.value;try{localStorage.setItem("qlkh-t10-status",JSON.stringify(saved))}catch(x){}head();miles();week();gantt();tasks()};
+all();
+</script>
+</body>
+</html>
